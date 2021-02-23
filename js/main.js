@@ -1,5 +1,25 @@
 const poke_container = document.getElementById('poke_container');
 const pokemon_number = 151;
+const TYPE_COLORS = {
+  Inseto: 'B1C12E',
+  Sombrio: '4F3A2D',
+  Dragão: '755EDF',
+  Elétrico: 'FCBC17',
+  Fada: 'F4B1F4',
+  Lutador: '823551D',
+  Fogo: 'E73B0C',
+  Voador: 'A3B3F7',
+  Fantasma: '606082',
+  Planta: '74C236',
+  Terra: 'D3B357',
+  Gelo: 'A3E7FD',
+  Normal: 'C8C4BC',
+  Veneno: '934594',
+  Psíquico: 'ED4882',
+  Rocha: 'B9A156',
+  Aço: 'B5B5C3',
+  Água: '3295F6'
+}
 
 const fetchPokemons = async () => {
   for(let i=1; i<= pokemon_number; i++){
@@ -68,9 +88,10 @@ const createPokemonCard = (pokemonData) => {
       case 'unknown':
         return 'Desconhecido';
       case 'shadow':
-        return 'Shadow'
+        return 'Shadow';
     }
-  }).join(" / ");
+  });
+  const typeHTML = type.map(typeRes => {return `<span class="badge rounded-pill mr-1" style="background-color: #${TYPE_COLORS[typeRes]}">${typeRes}</span>`}).join(" ");
   let stats = {hp: '', attack: '', defense: '', speed: '', specialAttack: '', specialDefense: ''};
   pokemonData.stats.map(statsRes => {
     switch(statsRes.stat.name){
@@ -107,7 +128,7 @@ const createPokemonCard = (pokemonData) => {
     <img src="${sprites.default}" class="img-fluid card-img-top">
     <div class="card-body">
       <h5 class="card-title">${name}</h5>
-      <p class="lead">${type}</p>
+      ${typeHTML}
       <a href="#" data-bs-toggle="modal" data-bs-target="#modal${id}" class="stretched-link"></a>
     </div>
   </div>

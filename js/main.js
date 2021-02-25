@@ -1,4 +1,5 @@
 const poke_container = document.getElementById('poke_container');
+const search_res = document.getElementById('pesquisa');
 const pokemon_number = 151;
 const TYPE_COLORS = {
   Inseto: 'B1C12E',
@@ -23,7 +24,9 @@ const TYPE_COLORS = {
 
 const fetchPokemons = async () => {
   for(let i=1; i<= pokemon_number; i++){
-    await getPokemon(i);
+    if(i!=2){      
+      await getPokemon(i);
+    }
   }
 }
 
@@ -83,7 +86,7 @@ const createPokemonCard = (pokemonData) => {
         return 'Dragão';
       case 'dark':
         return 'Sombrio';
-      case 'Fairy':
+      case 'fairy':
         return 'Fada';
       case 'unknown':
         return 'Desconhecido';
@@ -116,11 +119,11 @@ const createPokemonCard = (pokemonData) => {
     }
   });
   console.log(pokemonData);
+  pokemonEl.classList.add('poke-card');
   pokemonEl.classList.add('col-lg-2');
   pokemonEl.classList.add('col-md-3');
   pokemonEl.classList.add('col-sm-4');
   pokemonEl.classList.add('col-6');
-  pokemonEl.classList.add('card-group');
   pokemonEl.classList.add('mb-2');
   const pokemonCardHTML = `
   <div class="card">
@@ -238,7 +241,79 @@ const createPokemonCard = (pokemonData) => {
   </div>
   `;
   
-  pokemonEl.innerHTML = pokemonCardHTML;
+  if(id == "48"){
+    pokemonEl.innerHTML = `
+    <div class="card">
+    <span class="badge bg-secondary">${id}</span>
+    <img src="img/juan_default.png" class="img-fluid card-img-top">
+    <div class="card-body">
+      <h5 class="card-title">Juan</h5>
+      ${typeHTML}
+      <a href="#" data-bs-toggle="modal" data-bs-target="#modal${id}" class="stretched-link"></a>
+    </div>
+  </div>
+  <div class="modal fade" id="modal${id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="exampleModalLabel">Juan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-8">            
+              <img src="img/juan_artwork.png" class="img-fluid artwork">
+            </div>
+          </div>
+          <h4 class="text-center">Informações adicionais</h5>
+          <div class="row align-items-center justify-content-center">
+            <div class="col-12 col-md-3">Capacidade pulmonar</div>
+            <div class="col-12 col-md-9">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuemin="0" aria-valuemax="100">
+                 25%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-12 col-md-3">Capacidade nasal</div>
+            <div class="col-12 col-md-9">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuemin="0" aria-valuemax="100">
+                  100%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-12 col-md-3">Habilidade na bike</div>
+            <div class="col-12 col-md-9">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuemin="0" aria-valuemax="100">
+                  20%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-12 col-md-3">Velocidade</div>
+            <div class="col-12 col-md-9">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 5%" aria-valuemin="0" aria-valuemax="100">
+                  5%
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    `;
+  }else{
+    pokemonEl.innerHTML = pokemonCardHTML
+  }
   poke_container.appendChild(pokemonEl);
 }
 

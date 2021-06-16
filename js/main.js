@@ -240,9 +240,7 @@ const createPokemonCard = (pokemonData) => {
     </div>
   </div>
   `;
-  }else{
-    pokemonEl.innerHTML = pokemonCardHTML
-  }
+  pokemonEl.innerHTML = pokemonCardHTML;
   poke_container.appendChild(pokemonEl);
 }
 
